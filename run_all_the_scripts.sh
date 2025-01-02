@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -e # fail on any error
 
 BOLD=$(tput bold)$(tput setaf 1)
 NORMAL=$(tput sgr0)
@@ -13,6 +12,8 @@ echo "Done"
 echo -n -e "${BOLD}Delete the table... ${NORMAL}"
 ./ddb_delete_table.sh -f
 echo "Done"
+
+set -e # fail on any error
 
 echo -n -e "${BOLD}Create the table... ${NORMAL}"
 ./ddb_create_table.sh
