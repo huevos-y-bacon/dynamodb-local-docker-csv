@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# check that script is sourced
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && echo "Please source this script!" && exit 1
+
+AWS_ENDPOINT_URL_DDB=http://localhost:8000
+alias dynamodb='aws dynamodb --endpoint-url $AWS_ENDPOINT_URL_DDB'
+
+usage() {
+    echo "Usage: dynamodb [options] <command> <subcommand> [parameters]"
+    echo " e.g. :
+
+    dynamodb list-tables
+    dynamodb describe-limits
+
+    dynamodb create-table --table-name Music --attribute-definitions AttributeName=Artist,AttributeType=S AttributeName=SongTitle,AttributeType=S --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+    dynamodb put-item --table-name Music --item '{\"Artist\": {\"S\": \"No One You Know\"}, \"Album\": {\"S\": \"No One You Know\"}, \"SongTitle\": {\"S\": \"Call Me Today\"}}'
+    dynamodb scan --table-name Music
+    "
+}
